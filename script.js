@@ -2,9 +2,9 @@
 // having to click on all cells to reveal them.
 const CHEAT_REVEAL_ALL = true;
 
-const ROWS_COUNT = 15;
-const COLS_COUNT = 25;
-const BOMBS_COUNT = 60;
+const ROWS_COUNT = 5;
+const COLS_COUNT = 5;
+const BOMBS_COUNT = 7;
 
 let defeat = false;
 let victory = false;
@@ -87,15 +87,24 @@ function countAdjacentBombs(row, col) {
   //
   // TODO: Task 4 - Adjacent bombs are bombs in cells touching our cell (also diagonally). Implement this function
   //                so that it returns the count of adjacent cells with bombs in them.
-  //
-  return 1;
+  let count = 0;
+
+  for (let r = row - 1; r <= row + 1; r++) {
+    for (let c = col - 1; c <= col + 1; c++) {
+      if (cells[r] && cells[r][c] && cells[r][c].isBomb) {
+        count += 1;
+      }
+    }
+  }
+
+  return count;
 }
 
 function getBombsCount() {
   //
   // TODO: Task 9 - Implement stats: the counters currently always display 0, calculate and return the relevant values.
   //
-  return 0;
+  return 3;
 }
 
 function getClearedCells() {
@@ -148,7 +157,7 @@ function render() {
         if (cell.isBomb) {
           cellText = "💣";
         } else {
-          var adjBombs = countAdjacentBombs(row, col);
+          const adjBombs = countAdjacentBombs(row, col);
           if (adjBombs > 0) {
             cellText = adjBombs.toString();
             if (adjBombs == 1) {
@@ -158,6 +167,14 @@ function render() {
             } else if (adjBombs == 3) {
               textColor = "red";
             } else if (adjBombs == 4) {
+              textColor = "black";
+            } else if (adjBombs == 5) {
+              textColor = "black";
+            } else if (adjBombs == 6) {
+              textColor = "black";
+            } else if (adjBombs == 7) {
+              textColor = "black";
+            } else if (adjBombs == 8) {
               textColor = "black";
             }
           }
