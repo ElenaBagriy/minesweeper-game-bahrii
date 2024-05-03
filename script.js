@@ -4,6 +4,7 @@ const CHEAT_REVEAL_ALL = true;
 
 const ROWS_COUNT = 10;
 const COLS_COUNT = 10;
+const BOMBS_COUNT = 10;
 
 let defeat = false;
 let victory = false;
@@ -26,18 +27,33 @@ for (let row = 0; row < ROWS_COUNT; row++) {
 
 //
 // TODO: Task 1 - add some bombs at fixed positions.
-cells[0][0].isBomb = true;
-cells[1][7].isBomb = true;
-cells[4][9].isBomb = true;
-cells[8][2].isBomb = true;
-cells[9][2].isBomb = true;
-cells[9][9].isBomb = true;
+// cells[0][0].isBomb = true;
+// cells[1][7].isBomb = true;
+// cells[4][9].isBomb = true;
+// cells[8][2].isBomb = true;
+// cells[9][2].isBomb = true;
+// cells[9][9].isBomb = true;
 
 //
 // TODO: Task 2 - Comment out the code of task 1. Instead of adding bombs in fixed places, add 10 of them in random places.
 //                Add a BOMBS_COUNT constant so that you can easily change the amount of bombs placed. Put it next to the
 //                other constants.
 //
+
+function addBombs(ammount) {
+  for (let i = 1; i <= ammount; i++) {
+    let randomRow = Math.floor(Math.random() * 10);
+    let randomColumn = Math.floor(Math.random() * 10);
+
+    while (cells[randomRow][randomColumn].isBomb === true) {
+      randomRow = Math.floor(Math.random() * 10);
+      randomColumn = Math.floor(Math.random() * 10);
+    }
+    cells[randomRow][randomColumn].isBomb = true;
+  }
+}
+
+addBombs(BOMBS_COUNT);
 
 // Once the game has been initialized, we "render" it.
 render();
@@ -118,11 +134,11 @@ function getMessage() {
 
 // "Render" the game. Update the content of the page to reflect any changes to the game state.
 function render() {
-  var playfield = document.getElementById("playfield");
-  var html = "";
-  for (var row = 0; row < ROWS_COUNT; row++) {
+  const playfield = document.getElementById("playfield");
+  let html = "";
+  for (let row = 0; row < ROWS_COUNT; row++) {
     html += '<div class="row">';
-    for (var col = 0; col < COLS_COUNT; col++) {
+    for (let col = 0; col < COLS_COUNT; col++) {
       var cell = cells[row][col];
       var cellText = "";
       var cssClass = "";
