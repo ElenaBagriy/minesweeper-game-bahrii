@@ -1,6 +1,6 @@
 // Set this constant to true to debug the placement of bombs without
 // having to click on all cells to reveal them.
-const CHEAT_REVEAL_ALL = true;
+const CHEAT_REVEAL_ALL = false;
 
 const ROWS_COUNT = 5;
 const COLS_COUNT = 5;
@@ -65,7 +65,7 @@ render();
 function discoverCell(row, col) {
   //
   // TODO: Task 5 - Reveal cells when clicked.
-  //
+  cells[row][col].discovered = true;
   //
   // TODO: Task 6 - Discover neighbor cells recursively, as long as there are no adjacent bombs to the current cell.
   //
@@ -215,6 +215,7 @@ function render() {
 // This function gets called each time a cell is clicked. Arguments "row" and "col" will be set to the relevant
 // values. Argument "event" is used to check if the shift key was held during the click.
 function onCellClicked(row, col, event) {
+  console.log(event.target);
   if (event.shiftKey) {
     flagCell(row, col);
   } else {
