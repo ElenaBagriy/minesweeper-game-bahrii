@@ -86,6 +86,9 @@ function discoverCell(row, col) {
   //
   // TODO: Task 8 - Implement defeat. If the player "discovers" a bomb (clicks on it without holding shift), set the variable defeat to true.
   //
+  if (cells[row][col].isBomb && !defeat) {
+    defeat = true;
+  }
 }
 
 function flagCell(row, col) {
@@ -163,7 +166,9 @@ function render() {
       "If you know where is the bomb, mark the cell by placing flag 🚩. Just hold
       shift and click"
     </p>`;
-  playfield.insertAdjacentHTML("afterend", rulesMessage);
+  if (!playfield.nextElementSibling.classList.contains("help-message")) {
+    playfield.insertAdjacentHTML("afterend", rulesMessage);
+  }
   let html = "";
   for (let row = 0; row < ROWS_COUNT; row++) {
     html += '<div class="row">';
