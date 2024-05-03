@@ -4,10 +4,11 @@ const CHEAT_REVEAL_ALL = false;
 
 const ROWS_COUNT = 5;
 const COLS_COUNT = 5;
-const BOMBS_COUNT = 3;
+const BOMBS_COUNT = 2;
 
 let defeat = false;
 let victory = false;
+let discoveredCells = 0;
 
 // Cell constructor
 function Cell() {
@@ -69,6 +70,7 @@ function discoverCell(row, col) {
     return;
   }
   cells[row][col].discovered = true;
+  discoveredCells += 1;
   //
   // TODO: Task 6 - Discover neighbor cells recursively, as long as there are no adjacent bombs to the current cell.
   //
@@ -122,21 +124,22 @@ function getBombsCount() {
   //
   // TODO: Task 9 - Implement stats: the counters currently always display 0, calculate and return the relevant values.
   //
-  return 3;
+  return BOMBS_COUNT;
 }
 
 function getClearedCells() {
   //
   // TODO: Task 9 - Implement stats: the counters currently always display 0, calculate and return the relevant values.
   //
-  return 0;
+
+  return discoveredCells;
 }
 
 function getTotalCellsToClear() {
   //
   // TODO: Task 9 - Implement stats: the counters currently always display 0, calculate and return the relevant values.
   //
-  return 0;
+  return ROWS_COUNT * COLS_COUNT;
 }
 
 function checkForVictory() {
