@@ -2,9 +2,9 @@
 // having to click on all cells to reveal them.
 const CHEAT_REVEAL_ALL = true;
 
-const ROWS_COUNT = 10;
-const COLS_COUNT = 10;
-const BOMBS_COUNT = 10;
+const ROWS_COUNT = 15;
+const COLS_COUNT = 25;
+const BOMBS_COUNT = 60;
 
 let defeat = false;
 let victory = false;
@@ -42,12 +42,12 @@ for (let row = 0; row < ROWS_COUNT; row++) {
 
 function addBombs(ammount) {
   for (let i = 1; i <= ammount; i++) {
-    let randomRow = Math.floor(Math.random() * 10);
-    let randomColumn = Math.floor(Math.random() * 10);
+    let randomRow = Math.floor(Math.random() * ROWS_COUNT);
+    let randomColumn = Math.floor(Math.random() * COLS_COUNT);
 
     while (cells[randomRow][randomColumn].isBomb === true) {
-      randomRow = Math.floor(Math.random() * 10);
-      randomColumn = Math.floor(Math.random() * 10);
+      randomRow = Math.floor(Math.random() * ROWS_COUNT);
+      randomColumn = Math.floor(Math.random() * COLS_COUNT);
     }
     cells[randomRow][randomColumn].isBomb = true;
   }
