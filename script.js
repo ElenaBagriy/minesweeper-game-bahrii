@@ -4,7 +4,7 @@ const CHEAT_REVEAL_ALL = false;
 
 const ROWS_COUNT = 5;
 const COLS_COUNT = 5;
-const BOMBS_COUNT = 7;
+const BOMBS_COUNT = 3;
 
 let defeat = false;
 let victory = false;
@@ -69,6 +69,17 @@ function discoverCell(row, col) {
   //
   // TODO: Task 6 - Discover neighbor cells recursively, as long as there are no adjacent bombs to the current cell.
   //
+  const count = countAdjacentBombs(row, col);
+
+  if (count === 0) {
+    for (let r = row - 1; r <= row + 1; r++) {
+      for (let c = col - 1; c <= col + 1; c++) {
+        if (cells[r] && cells[r][c] && !cells[r][c].discovered) {
+          discoverCell(r, c);
+        }
+      }
+    }
+  }
   //
   // TODO: Task 8 - Implement defeat. If the player "discovers" a bomb (clicks on it without holding shift), set the variable defeat to true.
   //
@@ -215,7 +226,6 @@ function render() {
 // This function gets called each time a cell is clicked. Arguments "row" and "col" will be set to the relevant
 // values. Argument "event" is used to check if the shift key was held during the click.
 function onCellClicked(row, col, event) {
-  console.log(event.target);
   if (event.shiftKey) {
     flagCell(row, col);
   } else {
