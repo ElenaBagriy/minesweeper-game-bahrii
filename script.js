@@ -65,6 +65,9 @@ render();
 function discoverCell(row, col) {
   //
   // TODO: Task 5 - Reveal cells when clicked.
+  if (cells[row][col].hasBeenFlagged) {
+    return;
+  }
   cells[row][col].discovered = true;
   //
   // TODO: Task 6 - Discover neighbor cells recursively, as long as there are no adjacent bombs to the current cell.
@@ -90,6 +93,7 @@ function flagCell(row, col) {
   // TODO: Task 7 - Implement flags. Flags allow the player to mark cells that they think contain a bomb.
   //                When clicking a cell and holding shift, function flagCell() will be called for you.
   //
+  cells[row][col].hasBeenFlagged = !cells[row][col].hasBeenFlagged;
 }
 
 // This function is called once for each cell when rendering the game. The row and col of the current cell is
@@ -155,6 +159,11 @@ function getMessage() {
 // "Render" the game. Update the content of the page to reflect any changes to the game state.
 function render() {
   const playfield = document.getElementById("playfield");
+  const rulesMessage = `<p class="help-message">
+      "If you know where is the bomb, mark the cell by placing flag 🚩. Just hold
+      shift and click"
+    </p>`;
+  playfield.insertAdjacentHTML("afterend", rulesMessage);
   let html = "";
   for (let row = 0; row < ROWS_COUNT; row++) {
     html += '<div class="row">';
